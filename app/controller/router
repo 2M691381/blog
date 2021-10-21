@@ -1,0 +1,181 @@
+<?php
+
+namespace blog\Controller;
+
+use blog\lib\Request;
+use blog\Controller\ControllerPosts; 
+use blog\Controller\ControllerUser; 
+use blog\lib\View;
+
+class Router 
+{
+
+    private $ctrlPosts;
+    private $ctrlUser;
+    private $request;
+
+    public function __construct() 
+    {
+      $this->request = new Request();
+      $this->ctrlPosts = new ControllerPosts();
+      $this->ctrlUser = new ControllerUser();
+      
+    }
+
+    // Traite une requête entrante
+    public function routerRequest() 
+    {
+      try {  
+          if (isset($_GET['action'])) {
+              switch ($_GET['action']) {
+              //VISUALISATION DES ARTICLES 
+              case 'post':
+                    $this->ctrlPosts->post();
+                    break;            
+              //VISUALISATION D'UN ARTICLE ET SES COMMENTAIRES
+              case 'posts':
+                    $postsId = intval($this->request->getParametre($_GET, 'id'));
+                    if ($postsId != 0) {
+                      $this->ctrlPosts->posts($postsId); 
+                      return;
+                    }
+                        throw new \Exception("Identifiant de L'article non valide");
+                    break;
+              //AJOUTER UN COMMENTAIRE 
+              case 'comment':
+                  if(!empty($_POST) AND !empty($_GET)) {
+                    $postsId = $this->request->getParametre($_GET,'id');
+                    $author = $this->request->getParametre($_POST,'author');
+                    $comment = $this->request->getParametre($_POST,'comment');
+                    $this->ctrlPosts->comments($postsId, $author, $comment);
+                  } 
+                    break;
+                //AJOUTER UN ARTICLE
+              case 'addArticle':
+                          if(!empty ($_POST)) {
+                            $title = $this->request->getParametre($_POST, 'title');
+                            $chapo = $this->request->getParametre($_POST, 'chapo');
+                            $content = $this->request->getParametre($_POST, 'content');
+                            $this->ctrlPosts->newPosts($title, $chapo, $content);
+                          } else {
+                            $view = new View('Add');
+                            $view->generer(array());
+                          }
+                  break;
+              //MODIFIER UN ARTICLE
+              case 'editArticle':
+                          if(!empty ($_POST) AND !empty($_GET)) {
+                            $postsId = $this->request->getParametre($_GET, 'id');
+                            $title = $this->request->getParametre($_POST, 'title');
+                            $chapo = $this->request->getParametre($_POST, 'chapo');
+                            $content = $this->request->getParametre($_POST, 'content');
+                            $this->ctrlPosts->editPosts($title, $chapo, $content, $postsId);
+                          } else {
+                              $postsId = $this->request->getParametre($_GET, 'id');
+                              $posts = $this->ctrlPosts->dataPosts($postsId);
+                              $view = new View('Edit');
+                              $view->generer(array('posts' => $posts));
+                          }
+                  break;
+               //SUPPRIMER UN ARTICLE
+               case 'deleteArticle':
+                          if(!empty ($_POST)) {
+                            $postsId = $this->request->getParametre($_POST, 'id'); 
+                            $this->ctrlPosts->deletePosts($postsId);
+                          } else {
+                              $view = new View('Delete');
+                              $view->generer(array());
+                          }
+                  break;
+               //INSCRIPTION D'UN NOUVEL UTILISATEUR
+               case 'addUser':
+                    if(!empty ($_POST)){
+                      $user = $this->request->getParametre($_POST, 'user');
+                      $pass = $this->request->getParametre($_POST, 'pass');
+                      $email = $this->request->getParametre($_POST, 'email');
+                      $this->ctrlUser->addUser($user, $pass, $email);
+                    } else {
+                        $view = new View('ConnectRegist');
+                        $view->generer(array());
+                    }
+                    break;
+               //CONNEXION DE L'UTILISATEUR
+               case 'connectUser':
+                    if(!empty ($_POST)){
+                      $user = $this->request->getParametre($_POST, 'user');
+                      $pass = $this->request->getParametre($_POST, 'pass');
+                      $email = $this->request->getParametre($_POST, 'email');
+                      $this->ctrlUser->userConnect($user, $pass, $email);
+                    } else {
+                        $view = new View('ConnectRegist');
+                        $view->generer(array());
+                    }
+                    break;
+
+               //DECONNEXION DE L'UTILISATEUR
+               case 'disconnectUser':
+                    $this->ctrlUser->userDisconnect();
+                    break;
+
+               //VISUALISATION DES UTILISATEURS
+               case 'admin':
+                   if(isset($_SESSION['admin']) AND !empty ($_SESSION['admin'])){
+                    $this->ctrlUser->users();
+                    return;
+                   }
+                        throw new \Exception("Page inexistante");
+                    break;
+               //CONFIRMATION DE L'ADMIN 
+               case 'validateadmin':
+                    if(isset($_GET) AND !empty($_GET)) {
+                      $userId = $this->request->getParametre($_GET, 'id');
+                      $this->ctrlUser->validateUserAdmin($userId);
+                    }
+                    break;
+                // NON CONFIRMATION DE L'ADMIN
+                case 'novalidateadmin':
+                    if(isset($_GET) AND !empty($_GET)) {
+                      $userId = $this->request->getParametre($_GET, 'id');
+                      $this->ctrlUser->noValidateUserAdmin($userId);
+                    }
+                    break;
+                //APPROBATION DU COMMENTAIRE
+                case 'validatecomment':
+                    if(isset($_GET) AND !empty($_GET)) {
+                      $commentId = $this->request->getParametre($_GET, 'id');
+                      $this->ctrlUser->validComment($commentId);
+                    }
+                    break;
+                //NON APPROBATION DU COMMENTAIRE
+                case 'novalidatecomment':
+                    if(isset($_GET) AND !empty($_GET)) {
+                      $commentId = $this->request->getParametre($_GET, 'id');
+                      $this->ctrlUser->noValidComment($commentId);
+                    }
+                    break;
+               default:
+                    throw new \Exception("Action non valide");
+              }
+              return;
+          }  // aucune action définie : affichage de l'accueil
+              $this->home();
+      } catch (\Exception $e) {
+          $this->error($e->getMessage());
+      }
+    }
+
+
+    // Affiche la page d'accueil 
+    private function home()
+    {
+      $view = new View("Home");
+      $view->generer(array());
+    }
+    // Affiche une erreur
+    private function error($msgError) 
+    {
+      $view = new View("Error");
+      $view->generer(array('msgError' => $msgError));
+    }
+}
+
