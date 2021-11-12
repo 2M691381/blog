@@ -1,0 +1,12 @@
+#AuthName "Ceci est du contenu sécurise"
+#AuthType Basic
+#AuthUserFile ""
+#Require valid-user
+
+RewriteRule ^(.*) http://localhost/bblogftp/index.php? [R=301,NC,L]
+
+
+# Mise en place d'URL génériques
+# Réécrit une URL de type xxx/yyy/zzz en index.php?controleur=xxx&action=yyy&id=zzz
+# RewriteEngine on
+# RewriteRule ^([a-zA-Z]*)/([0-9]*)$ index.php?action=$1&id=$2 [NC,L]

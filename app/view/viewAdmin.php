@@ -1,23 +1,25 @@
-<?php $this->titre = 'Blog - Administration'; ?>
+<?php $this->title = ' Dashboard Administration'; ?>
 
 <div class="container" id="viewAdmin">
 
-	  <h2>Liste des utilisateurs inscrits</h2>
+
+<!-- Dashboard admin avec validation ou suppresssion des utilisateurs et commentaires -->
+	  <h2>Liste des utilisateurs à valider</h2>
 
 	  <div class="row" id="content">
 	       <?php foreach ($users as $user): ?>
-	           <p><?= $user->getId() ?> : <?= $this->clean($user->getLogin()) ?> - <a href="index.php?action=confirmadmin&id=<?= $user->getId(); ?>">Admin</a> - <a href="index.php?action=noconfirmadmin&id=<?= $user->getId(); ?>">Pas admin</a></p> 
+	           <p><?= $this->clean($user->getLogin()) ?> - <a href="index.php?action=confirmuser&id=<?= $user->getUsers_id(); ?>">Valider cet utilisateur</a> - <a href="index.php?action=noconfirmuser&id=<?= $user->getUsers_id(); ?>">Supprimer cet utilisateur</a></p>
 	           <hr>
 	       <?php endforeach; ?>
 	  </div>
 
-	    <h2>Liste des commentaires à valider</h2>
+	    <h2>Liste des comentaires à valider</h2>
 
 	  <div class="row" id="content">
 	       <?php foreach ($commentsApprouve as $commentApprouve): ?>
-	           <p> Article n°<?= $commentApprouve->getId_article() ?> par <?= $this->clean($commentApprouve->getAuthor()) ?> le <?= $this->clean($commentApprouve->getComment_date_fr()) ?></p>
+	           <p> Commentaire par <?= $this->clean($commentApprouve->getLogin()) ?> le <?= $this->clean($commentApprouve->getComment_date_fr()) ?></p>
 	           <p><?= $this->clean($commentApprouve->getComment()) ?></p>
-	           <a href="index.php?action=confirmcomment&id=<?= $commentApprouve->getId(); ?>">Approuver</a> - <a href="index.php?action=noconfirmcomment&id=<?= $commentApprouve->getId(); ?>">Non approuver</a>
+	           <a href="index.php?action=confirmcomment&id=<?= $commentApprouve->getComments_id(); ?>">Valider ce commentaire</a> - <a href="index.php?action=noconfirmcomment&id=<?= $commentApprouve->getComments_id(); ?>">Supprimer ce commentaire</a>
 	           <hr>
 	       <?php endforeach; ?>
 	  </div>

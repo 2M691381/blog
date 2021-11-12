@@ -4,5 +4,10 @@
 	    "psr-4":{
 	     	  "blog\\": "app"
 	    }
-    } 
+    },
+	"require": {
+		"phpmailer/phpmailer": "^6.5",
+		"twbs/bootstrap": "^5.1",
+		"squizlabs/php_codesniffer": "*"
+	}
 }

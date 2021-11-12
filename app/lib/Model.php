@@ -2,7 +2,7 @@
 
 namespace blog\lib;
 
-use blog\lib\Configuration;
+use blog\lib\Config;
 
 abstract class Model 
 {
@@ -23,14 +23,12 @@ abstract class Model
     {
         if (self::$bdd === null) {
             // Récupération des paramètres de configuration BD
-            $dsn = Configuration::get("dsn");
-            $login = Configuration::get("login");
-            $mdp = Configuration::get("mdp");
-            $port = Configuration::get("port");
-
+            $dsn = Config::get("dsn");
+            $login = Config::get("login");
+            $mdp = Config::get("mdp");
             // Création de la connexion
-            self::$bdd = new \PDO('mysql:host=localhost;dbname=test;charset=utf8;port=3307', 'root', 'root', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
-       }
+              self::$bdd = new \PDO('mysql:host=localhost;dbname=bblog;charset=utf8;port=3307', 'root', 'root', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
+      }
         return self::$bdd;
     }
 

@@ -5,56 +5,61 @@ namespace blog\Model;
 use blog\lib\Model;
 use blog\Model\User;
 
-class UserAdmin extends Model 
+class UserAdmin extends Model
 {
 
-	public function registrationUser($user, $pass, $email) 
+// enregistrement utilisateur en bdd avant modération int = 0
+	public function registrationUser($login, $email, $password)
 	{
-		$sql = 'INSERT INTO members (user, pass, email, validate) VALUES (?, ?, ?, 0)';
-		$this->executerRequete($sql, array($user, $pass, $email));
+		$sql = 'INSERT INTO users (login, email, password, confirm) VALUES (?, ?, ?, 0)';
+		$this->executerRequete($sql, array($login, $email, $password));
 	}
 
-	public function existUser($user) 
+// on vérifie juste l'email pour voir si utilisateur déjà en bdd
+	public function existUser($email)
 	{
-		$sql = 'SELECT * FROM members WHERE user = ?';
-		$user = $this->executerRequete($sql, array($user));
+		$sql = 'SELECT * FROM users WHERE email = ?';
+		$user = $this->executerRequete($sql, array($email));
 		return ($user->rowCount() === 0);
 	}
 
-	public function connectUserAdmin($user, $pass) 
+// autorise connexion des utilisateurs validé int > 0 y compris admin en int 1
+	public function connectUserAdmin($login, $email, $password)
 	{
-		$sql = 'SELECT * FROM members WHERE user = ? AND pass = ?';
-		$userExist = $this->executerRequete($sql, array($user, $pass));
+		$sql = 'SELECT * FROM users WHERE login = ? AND email = ? AND password = ? AND confirm > 0';
+		$userExist = $this->executerRequete($sql, array($login, $email, $password));
 		if ($userExist->rowCount() == 1) {
 			return $userExist->fetchObject(User::class);
 		}
 		return false;
 	}
 
+// affiche liste utilisateur à valider
 	public function getUsers() 
     {
 	      $users = [];
-	      $sql = 'SELECT * FROM members ORDER BY id DESC';
+	      $sql = 'SELECT * FROM users  WHERE confirm = 0 ORDER BY users_id DESC';
 	      $request = $this->executerRequete($sql);
 	      return $request->fetchAll(\PDO::FETCH_CLASS, User::class);
     }
 
-    public function getUser($userId)
+    public function getUser($users_id)
     {
-    	$sql = 'SELECT * FROM members WHERE id = ?';
-    	$request = $this->executerRequete($sql,array($userId));
+    	$sql = 'SELECT * FROM users WHERE users_id = ?';
+    	$request = $this->executerRequete($sql,array($users_id));
     	return $request->fetchObject(User::class);
     }
 
-    public function validateUser($userId)
+// valide l'utilisateur avec int 2 ou suppression de la bdd
+    public function confirmUser($users_id)
     {
-    	$sql = 'UPDATE user SET validate = 1 WHERE id = ?';
-    	$this->executerRequete($sql, array($userId));
+    	$sql = 'UPDATE users SET confirm = 2 WHERE users_id = ?';
+    	$this->executerRequete($sql, array($users_id));
     }
 
-    public function noValidateUser($userId)
+    public function noConfirmUser($users_id)
     {
-    	$sql = 'UPDATE user SET validate = 0 WHERE id = ?';
-    	$this->executerRequete($sql, array($userId));
+    	$sql = 'DELETE FROM users WHERE users_id = ?';
+    	$this->executerRequete($sql, array($users_id));
     }
 }

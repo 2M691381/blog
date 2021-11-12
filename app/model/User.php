@@ -4,46 +4,35 @@ namespace blog\Model;
 
 class User
 {
-    private $id; 
-    private $user;
-    private $pass;
+	private $users_id;
+	private $login;
     private $email;
-    private $date_register;
-    private $validate;
+	private $password;
+    private $confirm;
 
-    public function getId()
+    public function getUsers_id()
     {
-        return $this->id; 
+    	return $this->users_id;
     }
 
-    public function setId($id)
+    public function setUsers_id($users_id)
     {
-        $this->id = $id;
+    	$this->users_id = $users_id;
     }
 
-    public function getUser()
+    public function getLogin()
     {
-        return $this->user; 
+    	return $this->login; 
     }
 
-    public function setUser($user)
+    public function setLogin($login)
     {
-        $this->user = $user;
-    }
-
-    public function getPass()
-    {
-        return $this->pass; 
-    }
-
-    public function setPass($pass)
-    {
-        $this->pass = $pass;
+    	$this->login = $login;
     }
 
     public function getEmail()
     {
-        return $this->email; 
+        return $this->email;
     }
 
     public function setEmail($email)
@@ -51,14 +40,24 @@ class User
         $this->email = $email;
     }
 
-    public function getValidate()
+    public function getPassword()
     {
-        return $this->validate; 
+    	return $this->password; 
     }
 
-    public function setValidate($validate)
+    public function setPassword($password)
     {
-        $this->validate = $validate;
+    	$this->password = $password;
+    }
+
+    public function getConfirm()
+    {
+        return $this->confirm; 
+    }
+
+    public function setConfirm($confirm)
+    {
+        $this->confirm = $confirm;
     }
 
 }    
