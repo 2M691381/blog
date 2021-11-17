@@ -16,7 +16,7 @@
 
 <div class="container" id="viewArticle">
 
-<!-- On vérifie si l'admin est connecté pour ajouter un article ( fontionne ), sinon on dit bonjour si un membre est connecté ( ne fonctionne pas ) -->
+<!-- On vérifie si l'admin est connecté pour ajouter un article ( fontionne ) -->
 <?php if ($_SESSION['admin'] == 1) { ?>
         <div>
            <a href="index.php?action=addPost"><button type="button" class="btn btn-primary btn-lg" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> AJOUTER UN ARTICLE</button></a><br />
