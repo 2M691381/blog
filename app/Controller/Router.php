@@ -48,9 +48,9 @@ class Router
                   if(!empty($_POST) AND !empty($_GET)) {
                     $comment = $this->request->getParameter($_POST,'comment');
                     $posts_id = $this->request->getParameter($_GET,'id');
-                    $users_id = $this->request->getParameter($_GET, 'userId');
+                    $users_id = $this->request->getParameter($_GET, 'id2');
                     $this->ctrlPost->comment($comment, $posts_id, $users_id);
-                  } 
+                  }
                     break;
 
                 //AJOUTER UN ARTICLE
