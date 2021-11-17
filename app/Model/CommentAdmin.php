@@ -39,10 +39,10 @@ class CommentAdmin extends Model
     }
 
 // Problème pour insérer et intégrer le login de connexion à la place de l'users_id, ajout impossible
-    public function addComment($comment, $posts_id, $users_id, $login)
+    public function addComment($comment, $posts_id, $users_id)
     {
-		$sql = 'INSERT INTO comments (comment, comment_date, approuve, posts_id, users_id, SELECT login FROM users) VALUES (?,NOW(),0,?,?,?)';
-		$this->executerRequete($sql, array($comment, $posts_id, $users_id, $login));
+        $sql = 'INSERT INTO Comments (comment, comment_date, approuve, posts_id, users_id) VALUES (?,NOW(),0,?,?)';
+        $this->executerRequete($sql, array($comment, $posts_id, $users_id));
     }
 }
 
