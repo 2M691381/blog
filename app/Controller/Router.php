@@ -138,56 +138,56 @@ class Router
                //CONFIRMATION DE L'USER
                case 'confirmuser':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $userId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->confirmUser($userId);
+                      $users_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->confirmUser($users_id);
                     }
                     break;
 
                 // NON CONFIRMATION DE L'USER REDIR DASHBOARD
                 case 'noconfirmuser':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $userId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->noConfirmUser1($userId);
+                      $users_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->noConfirmUser1($users_id);
                        }
                     break;
 
                      // NON CONFIRMATION DE L'USER REDIR PAGE CONFIRM
                 case 'noconfirmuser1':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $userId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->noConfirmUser($userId);
+                      $users_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->noConfirmUser($users_id);
                           }
                     break;
 
                      //CONFIRMATION DE L'ADMIN
                case 'confirmadmin':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $userId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->confirmUserAdmin($userId);
+                      $users_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->confirmUserAdmin($users_id);
                     }
                     break;
 
                 // NON CONFIRMATION DE L'ADMIN
                 case 'noconfirmadmin':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $userId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->noConfirmUserAdmin($userId);
+                      $users_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->noConfirmUserAdmin($users_id);
                     }
                     break;
 
                 //APPROBATION DU COMMENTAIRE
                 case 'confirmcomment':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $commentId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->validComment($commentId);
+                      $comments_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->validComment($comments_id);
                     }
                     break;
 
                 //NON APPROBATION DU COMMENTAIRE REDIR DASHBOARD
                 case 'noconfirmcomment':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $commentId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->noValidComment1($commentId);
+                      $comments_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->noValidComment1($comments_id);
                       } else {
                               $view = new View('Admin');
                               $view->generer(array());
@@ -197,8 +197,8 @@ class Router
                     //NON APPROBATION DU COMMENTAIRE REDIR PAGE CONFIRM
                 case 'noconfirmcomment2':
                     if(isset($_GET) AND !empty($_GET)) {
-                      $commentId = $this->request->getParameter($_GET, 'id');
-                      $this->ctrlUser->noValidComment($commentId);
+                      $comments_id = $this->request->getParameter($_GET, 'id');
+                      $this->ctrlUser->noValidComment($comments_id);
                       } else {
                               $view = new View('Admin');
                               $view->generer(array());
