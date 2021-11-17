@@ -37,14 +37,14 @@ class PostController
   }
 
 // ajout de commentaire avec autorisation user qui ne fonctionne pas, user_id / login . si pas inscrit, redirection .
-  public function comment($comment, $posts_id, $users_id, $login)
+  public function comment($comment, $posts_id, $users_id)
   {
    if ($_SESSION['id'] > 0) {
       // Sauvegarde du commentaire
-      $this->comment->addComment($comment, $posts_id, $users_id, $login);
+      $this->comment->addComment($comment, $posts_id, $users_id);
       // Actualisation de l'affichage de l'article
       $this->post($posts_id);
-
+     
         } else {
             $vue = new View("ErrorCom");
             $vue->generer(array());
