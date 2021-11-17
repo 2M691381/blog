@@ -74,8 +74,8 @@ class Router
                             $title = $this->request->getParameter($_POST, 'title');
                             $chapo = $this->request->getParameter($_POST, 'chapo');
                             $content = $this->request->getParameter($_POST, 'content');
-                            $login = $this->request->getParameter($_POST, 'login');
-                            $this->ctrlPost->editPost($title, $chapo, $content, $login, $posts_id);
+                            $users_id = $this->request->getParameter($_POST, 'users_id');
+                            $this->ctrlPost->editPost($title, $chapo, $content, $posts_id, $users_id);
                           } else {
                               $posts_id = $this->request->getParameter($_GET, 'id');
                               $post = $this->ctrlPost->dataPost($posts_id);
