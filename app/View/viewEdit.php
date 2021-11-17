@@ -16,7 +16,7 @@
 		  </div>
 		  <div class="form-group">
 		     <label for="exampleInputEmail1">Auteur</label>
-		     <input type="text" class="form-control" id="exampleInputEmail1" name="login" placeholder="Auteur" value="<?= $post->getUsers_id() ?>" required>
+		     <input type="text" class="form-control" id="exampleInputEmail1" name="users_id" placeholder="Auteur" value="<?= $post->getUsers_id() ?>" required>
 		  </div>
 		  <div class="form-group">
 		     <label for="exampleInputEmail1">Titre</label>
