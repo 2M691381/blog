@@ -24,10 +24,7 @@
         <div class="row" id=infoadmin>
         	 <p> <span class="label label-info">Info</span> Bonjour l'admin, vous pouvez désormais ajouter un article.</p>
         </div>
-    <?php } else { ($_SESSION['id'] == 2) ?>
-                            <div class="row" id=infoadmin>
-             <p> <span class="label label-info">Info</span><?php echo ' Bonjour ' . $login .' ,'; ?> bienvenue sur mon blog !</p>
-        </div>
+    
                     <?php } ?>
 
 
