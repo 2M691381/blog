@@ -28,3 +28,7 @@ finir github
 modif quelques lignes css pour mobile
 
 créer page vue confirmation edition posts
+
+--------------------------------------------------------------------
+
+Site disponible en ligne mickaelgrole.com .
