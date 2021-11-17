@@ -50,7 +50,7 @@
     $_SESSION['token'] = $token;
 ?>
 
-<form class="formarticle" method="POST" action="index.php?action=comment&id=<?= $post->getPosts_id() ?>&amp;userId=11">
+<form class="formarticle" method="POST" action="index.php?action=comment&id=<?= $post->getPosts_id() ?>&id2=<?= $_SESSION['id'] ?>">
 	<div class="form-group">
 		  	 <p>Laissez-moi un commentaire si vous avez aimé cet article.</p>
 		  </div>
