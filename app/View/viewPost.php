@@ -5,7 +5,7 @@
 	<p><a class="btn btn-primary btn-lg" id=btnreturn href="index.php?action=posts" role="button"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Retour</a></p>
 
 
-<!-- On vérifie si l'admin est connecté pour modifier ou supprimer cet article ( fontionne ), sinon on dit bonjour si un membre est connecté ( ne fonctionne pas ) -->
+<!-- On vérifie si l'admin est connecté pour modifier ou supprimer cet article ( fontionne ) -->
 	<?php if ($_SESSION['admin'] == 1) { ?>
 
 		<div class="row">
@@ -19,10 +19,7 @@
 		<div class="row" id=infoadmin>
 				<p> <span class="label label-info">Info</span> Bonjour l'admin, vous pouvez désormais modifier ou supprimer cet article.</p>
 	    </div>
- <?php } else { ($_SESSION['id'] == 2) ?>
-                            <div class="row" id=infoadmin>
-             <p> <span class="label label-info">Info</span><?php echo ' Bonjour ' . $login .' ,'; ?> vous pouvez désormais commenter cet article.</p>
-        </div>
+ 
                     <?php } ?>
 
    
