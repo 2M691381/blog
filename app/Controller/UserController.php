@@ -79,7 +79,7 @@ class UserController
     {
     	$users = $this->user->getUsers();
     	$commentsApprouve = $this->comment->getCommentsApprouve();
-    	$confirmUser = $this->user->confirmUser($userId);
+    	$confirmUser = $this->user->confirmUser($users_id);
         header('Refresh: 0.2; index.php?action=admin');
         echo "<script>alert('L'utilisateur a bien été validé !')</script>";
     }
@@ -89,7 +89,7 @@ class UserController
     {
     	$users = $this->user->getUsers();
     	$commentsApprouve = $this->comment->getCommentsApprouve();
-    	$confirmUser = $this->user->noConfirmUser($userId);
+    	$confirmUser = $this->user->noConfirmUser($users_id);
         echo "<script>alert('L'utilisateur a bien été supprimé !')</script>";
         header('Refresh: 0.2; index.php?action=admin');
      }
@@ -110,7 +110,7 @@ class UserController
     {   
     	$commentsApprouve = $this->comment->getCommentsApprouve();
     	$users = $this->user->getUsers();
-    	$validComment = $this->comment->approuveComment($commentId);
+    	$validComment = $this->comment->approuveComment($comments_id);
         header('Refresh: 0.2; index.php?action=admin');
         echo "<script>alert('Votre commentaire a bien été validé !')</script>";
     }
@@ -119,7 +119,7 @@ class UserController
     {   
     	$commentsApprouve = $this->comment->getCommentsApprouve();
     	$users = $this->user->getUsers();
-     	$validComment = $this->comment->noApprouveComment($commentId);
+     	$validComment = $this->comment->noApprouveComment($comments_id);
         echo "<script>alert('Votre commentaire a bien été supprimé !')</script>";
         header('Refresh: 0.2; index.php?action=admin');
     }
