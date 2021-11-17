@@ -58,10 +58,6 @@
 		  	 <p>Laissez-moi un commentaire si vous avez aimé cet article.</p>
 		  </div>
 		  <div class="form-group">
-		     <label for="exampleInputEmail1">Pseudo</label>
-		     <input type="text" class="form-control" id="exampleInputEmail1" name="login" placeholder="Pseudo" required>
-		  </div>
-		  <div class="form-group">
 		     <label for="exampleInputEmail1">Commentaire</label>
 		     <textarea class="form-control" rows="5" name="comment" placeholder="Commentaire" required></textarea>
 		  </div>
