@@ -43,14 +43,13 @@ class Router
                         throw new \Exception("Identifiant de L'article non valide");
                     break;
 
-              //AJOUTER UN COMMENTAIRE QUI NE FONCTIONNE PAS, USERID ET LOGIN COINCIDE PAS !
+            //AJOUTER UN COMMENTAIRE QUI NE FONCTIONNE PAS, USERID ET LOGIN COINCIDE PAS !
               case 'comment':
                   if(!empty($_POST) AND !empty($_GET)) {
                     $comment = $this->request->getParameter($_POST,'comment');
                     $posts_id = $this->request->getParameter($_GET,'id');
-                    $users_id = $this->request->getParameter($_GET, 'id');
-                    $login = $this->request->getParameter($_POST,'login');
-                    $this->ctrlPost->comment($comment, $posts_id, $users_id, $login);
+                    $users_id = $this->request->getParameter($_GET, 'userId');
+                    $this->ctrlPost->comment($comment, $posts_id, $users_id);
                   } 
                     break;
 
