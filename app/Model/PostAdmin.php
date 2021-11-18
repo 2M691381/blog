@@ -40,11 +40,10 @@ class PostAdmin extends Model
     	$this->executerRequete($sql, array($title, $chapo, $content));
   }
 
-// user_id ne fonctionne pas avec le login, modif impossible
-  public function updatePost($title, $chapo, $content, $users_id, $posts_id)
+  public function updatePost($title, $chapo, $content, $posts_id, $users_id)
   {
-    	$sql ='UPDATE posts SET title=?, chapo=?, content=?, users_id=?, updated_date=NOW() WHERE posts_id=?';
-    	$this->executerRequete($sql, array($title, $chapo, $content, $users_id, $posts_id));
+    	$sql ='UPDATE posts SET title=:title, chapo=:chapo, content=:content, updated_date=NOW(), users_id=1 WHERE posts_id=:posts_id';
+    	$this->executerRequete($sql, array('title'=>$title, 'chapo'=>$chapo, 'content'=>$content, 'posts_id'=>$posts_id));
   }
 
   public function removePost($posts_id)
