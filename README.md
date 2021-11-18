@@ -23,9 +23,6 @@ voir codacy ou SI
 finir github
 
 modif quelques lignes css pour mobile
-
-créer redirection page vue confirmation : suppression et edition posts
-
 --------------------------------------------------------------------
 
 Site disponible en ligne mickaelgrole.com .
