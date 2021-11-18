@@ -81,7 +81,9 @@ class UserController
     	$commentsApprouve = $this->comment->getCommentsApprouve();
     	$confirmUser = $this->user->confirmUser($users_id);
         header('Refresh: 0.2; index.php?action=admin');
-        echo "<script>alert('L'utilisateur a bien été validé !')</script>";
+        ?>
+        <script>alert("L'utilisateur a bien été validé !")</script>
+        <?php
     }
 
 //page dashboard admin sans confirmation pop up de validation de suppression user, ne marche pas !
@@ -90,7 +92,9 @@ class UserController
     	$users = $this->user->getUsers();
     	$commentsApprouve = $this->comment->getCommentsApprouve();
     	$confirmUser = $this->user->noConfirmUser($users_id);
-        echo "<script>alert('L'utilisateur a bien été supprimé !')</script>";
+        ?>
+        <script>alert("L'utilisateur a bien été supprimé !")</script>
+        <?php
         header('Refresh: 0.2; index.php?action=admin');
      }
 
