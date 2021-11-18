@@ -36,15 +36,16 @@ class PostController
       $vue->generer(array('post' => $post, 'comments' => $comments));
   }
 
-public function comment($comment, $posts_id, $users_id)
+ public function comment($comment, $posts_id, $users_id)
   {
    if ($_SESSION['id'] > 0) {
       // Sauvegarde du commentaire
       $this->comment->addComment($comment, $posts_id, $users_id);
       // Actualisation de l'affichage de l'article
-      echo "<script>alert('L'utilisateur a bien été supprimé !')</script>";
-       $vue = new View("AttCom");
-            $vue->generer(array());
+      $this->post($posts_id);
+      ?>
+      <script>alert("Vôtre commentaire est en cours de modération")</script>
+       <?php
 
         } else {
             $vue = new View("ErrorCom");
@@ -61,19 +62,25 @@ public function comment($comment, $posts_id, $users_id)
           $this->posts->addPost($title, $chapo, $content, $users_id);
           //Actualisation de l'affichage des articles
           $this->posts();
+          ?>
+          <script>alert("L'article a bien été ajouté !")</script>
+          <?php
       }
     } else {
           throw new \Exception("Erreur de vérification");
     }
   }
 
-// user_id et login imossible de les associer
-  public function editPost($title, $chapo, $content, $users_id, $posts_id)
+// user_id et login impossible de les associer
+  public function editPost($title, $chapo, $content, $posts_id, $users_id)
   {   
     if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
       if ($_SESSION['token'] == $_POST['token']) {
-          $this->posts->updatePost($title, $chapo, $content, $users_id, $posts_id);
-          $this->post($posts_id);
+         $this->posts->updatePost($title, $chapo, $content, $posts_id, $users_id);
+        $this->post($posts_id);
+        ?>
+        <script>alert("Vôtre article a bien été modifié")</script>
+       <?php
       }
     } else {
           throw new \Exception("Erreur de vérification");
@@ -90,6 +97,9 @@ public function comment($comment, $posts_id, $users_id)
   {
       $this->posts->removePost($posts_id);
       $this->posts();
+      ?>
+     <script>alert("Vôtre article a bien été supprimé !")</script>
+     <?php
   }
 
 
