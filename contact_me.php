@@ -74,8 +74,9 @@ if (!isset($_POST['object']) || strlen($object) < 1) {
             $mail->AltBody = $message; //Le message pour les boites non html
             $mail->SMTPDebug = 0; //On désactive les logs de debug
 
-            if ($mail->send()) {
-                echo '<div>Mail envoyé ! Merci pour votre interêt.</div>';
+           if ($mail->send()) {
+                echo '<div>Mail envoyé ! Je vous recontacterais sous 24H . Merci pour votre interêt.</div>';
+                        header('Refresh: 4; index.php');
             } else {
                 $erreur = '<div>Echec dans l\'envoi du mail</div>';
             }
